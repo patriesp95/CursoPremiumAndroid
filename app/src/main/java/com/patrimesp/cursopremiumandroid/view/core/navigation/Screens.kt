@@ -1,9 +1,10 @@
 package com.patrimesp.cursopremiumandroid.view.core.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-object Main
+data object Main: NavKey
 
 @Serializable
-object Detail
+data object Detail: NavKey

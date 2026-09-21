@@ -1,24 +1,28 @@
 package com.patrimesp.cursopremiumandroid.view.core.navigation
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
 import com.patrimesp.cursopremiumandroid.view.detail.DetailScreen
 import com.patrimesp.cursopremiumandroid.view.main.MainScreen
 
 @Composable
 fun NavigationWrapper() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Main) {
-        composable<Main> {
-            MainScreen(navigateToRegister = { navController.navigate(Detail)})
+    val backstack = rememberNavBackStack(Main)
+    NavDisplay(backStack = backstack, entryProvider = entryProvider {
+        entry<Main> {
+            Text("Main")
         }
 
-        composable<Detail> {
-            DetailScreen(navigateBack = { navController.popBackStack()})
+        entry<Detail> {
+            Text("")
         }
-    }
+    })
 
 
 }
