@@ -12,19 +12,23 @@ import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
     @Provides
-    fun provideMainRepository(api: ApiService): MainRepository = MainRepositoryImpl(api = api)
+    @Singleton
+    fun provideMainRepository(api: ApiService): MainRepository = MainRepositoryImpl(api)
 
     @Provides
+    @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
 
     @Provides
+    @Singleton
     fun provideRetrofit(json: Json): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
