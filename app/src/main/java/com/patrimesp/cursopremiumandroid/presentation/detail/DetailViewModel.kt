@@ -34,7 +34,7 @@ class DetailViewModel @Inject constructor(private val getDogByIdUseCase: GetDogB
 }
 
 data class DetailUiState(
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val dog: DogDetail? = null,
     val error: String? = null
 )
