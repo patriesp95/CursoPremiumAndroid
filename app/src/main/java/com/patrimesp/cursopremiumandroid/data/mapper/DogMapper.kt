@@ -7,6 +7,7 @@ fun MainResponse.toDomain(): Dog {
     return Dog(
         id = id,
         name = name,
+        breed = breed,
         description = description,
         age = age,
         image = BASE_URL + image
