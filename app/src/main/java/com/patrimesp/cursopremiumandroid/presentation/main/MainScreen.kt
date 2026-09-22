@@ -1,5 +1,6 @@
 package com.patrimesp.cursopremiumandroid.presentation.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,7 +41,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import com.patrimesp.cursopremiumandroid.data.datasource.api.ApiConfig.BASE_URL
 import com.patrimesp.cursopremiumandroid.domain.entity.Dog
 import com.patrimesp.cursopremiumandroid.ui.theme.BackgroundApp
 import com.patrimesp.cursopremiumandroid.ui.theme.BackgroundComponent
@@ -50,17 +50,17 @@ import com.patrimesp.cursopremiumandroid.ui.theme.SecondaryText
 
 @Composable
 fun MainScreen(
-    mainViewModel: MainViewModel = hiltViewModel(),
-    onBackSelected: () -> Unit
+    onItemTapped: (Int) -> Unit,
+    mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState by mainViewModel.uiState.collectAsStateWithLifecycle()
 
-    MainContent(uiState, mainViewModel)
+    MainContent(uiState, onQueryChange = { mainViewModel.onDogSearched(it)}, onItemTapped = onItemTapped)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainContent(uiState: MainUiState, mainViewModel: MainViewModel) {
+fun MainContent(uiState: MainUiState, onQueryChange: (String) -> Unit, onItemTapped: (Int) -> Unit) {
     Scaffold(
         containerColor = BackgroundApp, topBar = {
             TopAppBar(
@@ -81,9 +81,7 @@ fun MainContent(uiState: MainUiState, mainViewModel: MainViewModel) {
                 .padding(paddingValues)
                 .padding(16.dp)
         ) {
-            DogSearchBar(uiState.query, onValueChanged = { mainViewModel.onDogSearched(it)
-
-            })
+            DogSearchBar(uiState.query, onValueChanged = onQueryChange)
             Spacer(Modifier.height(32.dp))
             when {
                 uiState.isLoading -> {
@@ -100,7 +98,7 @@ fun MainContent(uiState: MainUiState, mainViewModel: MainViewModel) {
                         contentPadding = PaddingValues(bottom = 16.dp)
                     ) {
                         items(uiState.dogs, key = { dog -> dog.id }) { dog ->
-                            DogItem(dog)
+                            DogItem(dog, onItemTapped)
                         }
                     }
                 }
@@ -128,9 +126,9 @@ fun DogSearchBar(query: String, onValueChanged: (String) -> Unit) {
 }
 
 @Composable
-fun DogItem(dog: Dog) {
+fun DogItem(dog: Dog, onItemTapped: (Int) -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().clickable { onItemTapped(dog.id) },
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = BackgroundComponent)
     ) {
@@ -141,7 +139,7 @@ fun DogItem(dog: Dog) {
         ) {
 
             AsyncImage(
-                model = BASE_URL + dog.image,
+                model = dog.image,
                 contentDescription = dog.name,
                 modifier = Modifier
                     .size(100.dp)

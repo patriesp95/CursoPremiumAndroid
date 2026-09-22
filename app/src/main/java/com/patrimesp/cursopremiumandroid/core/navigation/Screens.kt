@@ -7,4 +7,4 @@ import kotlinx.serialization.Serializable
 data object Main: NavKey
 
 @Serializable
-data object Detail: NavKey
+data class Detail(val id: Int): NavKey
