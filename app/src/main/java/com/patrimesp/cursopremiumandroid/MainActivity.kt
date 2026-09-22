@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.patrimesp.cursopremiumandroid.ui.theme.CursoPremiumAndroidTheme
-import com.patrimesp.cursopremiumandroid.view.core.navigation.NavigationWrapper
+import com.patrimesp.cursopremiumandroid.core.navigation.NavigationWrapper
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

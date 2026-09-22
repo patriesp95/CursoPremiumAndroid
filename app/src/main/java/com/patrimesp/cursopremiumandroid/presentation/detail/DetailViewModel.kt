@@ -1,4 +1,4 @@
-package com.patrimesp.cursopremiumandroid.view.main
+package com.patrimesp.cursopremiumandroid.presentation.detail
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,13 +7,13 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(): ViewModel() {
+class DetailViewModel @Inject constructor(): ViewModel() {
 
-    val _uiState = MutableStateFlow(MainUiState())
-    var uiState: StateFlow<MainUiState> = _uiState
+    val _uiState = MutableStateFlow(DetailUiState())
+    var uiState: StateFlow<DetailUiState> = _uiState
 
 }
 
-data class MainUiState(
+data class DetailUiState(
     val isLoading: Boolean = false
 )

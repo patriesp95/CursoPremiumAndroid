@@ -1,4 +1,4 @@
-package com.patrimesp.cursopremiumandroid.view.core.navigation
+package com.patrimesp.cursopremiumandroid.core.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable

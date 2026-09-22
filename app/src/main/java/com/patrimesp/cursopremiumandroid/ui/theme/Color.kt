@@ -10,3 +10,5 @@ val BackgroundApp = Color(0xFF0E0B20)
 val BackgroundComponent = Color(0xFF1D1E33)
 val PrimaryButton = Color(0xFFEB1555)
 val ControlColor = Color(0xFF6200EE)
+
+val SecondaryText = Color(0xFF8D8E98)
